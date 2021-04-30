@@ -1,15 +1,19 @@
 import React from 'react'
-import { render, waitFor } from "@testing-library/react";
-import mock from "xhr-mock";
-import Container from ".";
+import { render, waitFor } from '@testing-library/react';
+import mock from 'xhr-mock';
+import Container from '.';
 
-describe("<Container />", () => {
+describe('<Container />', () => {
   beforeEach(() => mock.setup());
   afterEach(() => mock.teardown());
 
-  it("sends a request", async () => {
-    const mockFoo = jest.fn(() => expect("yes").toBe("no"));
-    mock.get("https://fullstory.com/foo", mockFoo);
+  it('sends a request', async () => {
+    const mockFoo = jest.fn((req, res) => {
+      expect('yes').toBe('no');
+
+      return res.status(200);
+    });
+    mock.post('https://fullstory.com/foo', mockFoo);
 
     render(<Container />);
 

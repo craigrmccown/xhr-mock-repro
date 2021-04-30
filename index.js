@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 
-const getRequest = url => {
+const postRequest = url => {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.send(null);
+  xhr.open('POST', url, true);
+  xhr.send(JSON.stringify({ foo: true }));
 }
 
 const Container = () => {
   useEffect(() => {
-    getRequest('https://fullstory.com/foo')
+    postRequest('https://fullstory.com/foo')
   }, [])
 
   return <div>Foo</div>
